@@ -22,7 +22,7 @@ VRAUX is a auxiliary library used in c++ project development, provides some comm
 　　
 
 # Author
-team: VisionRush
+team: VisionRush<br/>
 authors: wangbo(wangbo@ia.ac.cn), wangjian(wangjian4500@gmail.com)
 
 # Copyright and license
