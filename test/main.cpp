@@ -1,12 +1,10 @@
-#include "vraux_all.h"
-#include "vraux_test.h"
+#include "test.h"
 #include <iostream>
 #include <fstream>
 #include <istream>
 #include <time.h>
 
 using namespace visionrush;
-
 
 int main()
 {
@@ -34,34 +32,3 @@ int main()
 
 	return 0;
 }
-
-
-
-
-/*
-
-time_t time_start;
-time_t time_end;
-double time_eps;
-
-time_start = time(NULL);
-// do something
-time_end = time(NULL);
-time_eps = (time_end - time_start);
-printf("Use Time:%f\n", time_eps);
-
-
-
-double dur;
-clock_t c_start, c_end;
-
-c_start = clock();
-// do something
-
-c_end = clock();
-dur = (double)(c_end - c_start);
-printf("Use Time:%f\n", (dur / CLOCKS_PER_SEC));
-
-
-
-*/

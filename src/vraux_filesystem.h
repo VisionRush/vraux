@@ -4,7 +4,7 @@
 
 namespace visionrush
 {
-	class VRFileSystemTool 
+	class VR_API VRFileSystemTool 
 	{
 	public:
 		VRFileSystemTool() = default;

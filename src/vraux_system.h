@@ -6,7 +6,7 @@
 
 namespace visionrush
 {
-	class VRSystemTool
+	class VR_API VRSystemTool
 	{
 	public:
 		VRSystemTool() = default;

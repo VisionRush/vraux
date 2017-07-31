@@ -1,11 +1,10 @@
-#include "vraux_all.h"
-using namespace visionrush;
+#include "test.h"
 
 void TestForFileSystem()
 {
 	printf("***************************************************\n");
 	printf("*                                                 *\n");
-	printf("*           Module: vraux_filesystemvr         *\n");
+	printf("*           Module: vraux_filesystemvr            *\n");
 	printf("*                                                 *\n");
 	printf("***************************************************\n\n");
 
@@ -102,7 +101,7 @@ void TestForSystem()
 {
 	printf("***************************************************\n");
 	printf("*                                                 *\n");
-	printf("*              Module: vraux_system            *\n");
+	printf("*              Module: vraux_system               *\n");
 	printf("*                                                 *\n");
 	printf("***************************************************\n\n");
 
@@ -230,7 +229,7 @@ void TestForStringProcess()
 {
 	printf("***************************************************\n");
 	printf("*                                                 *\n");
-	printf("*          Module: vraux_stringprocess         *\n");
+	printf("*          Module: vraux_stringprocess            *\n");
 	printf("*                                                 *\n");
 	printf("***************************************************\n\n");
 

@@ -4,7 +4,7 @@
 
 namespace visionrush
 {
-	class VRStringProcTool
+	class VR_API VRStringProcTool
 	{
 	public:
 		VRStringProcTool() = default;
