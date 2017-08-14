@@ -1,4 +1,4 @@
-#include "vraux_all.h"
+#include "vraux/vraux_all.h"
 using namespace visionrush;
 
 // Test module: vraux_filesystem
@@ -9,3 +9,4 @@ void TestForSystem();
 
 // Test module: vraux_stringprocess
 void TestForStringProcess();
+

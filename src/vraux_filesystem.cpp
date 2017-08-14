@@ -1,4 +1,4 @@
-﻿#include "vraux_filesystem.h"
+﻿#include "vraux/vraux_filesystem.h"
 
 namespace visionrush
 {
@@ -49,12 +49,12 @@ namespace visionrush
 		}
 		// supplement directory path
 #if defined Q_OS_WIN
-		if (GetFileAttributes(output_path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)
+		if (_access(input_path.c_str(), 0) != -1 && GetFileAttributes(input_path.c_str()) & FILE_ATTRIBUTE_DIRECTORY)
 			if (output_path.back() != '/') output_path += "/";
 #elif defined Q_OS_LINUX
 		struct stat filestat;
-		lstat(output_path.c_str(), &filestat);
-		if (S_ISDIR(filestat.st_mode))
+		lstat(input_path.c_str(), &filestat);
+		if (access(input_path.c_str(), 0) != -1 && S_ISDIR(filestat.st_mode))
 			if (output_path.back() != '/') output_path += "/";
 #else
 #endif
@@ -136,6 +136,94 @@ namespace visionrush
 #endif
 		return filesize;
 	}
+
+	string VRFileSystemTool::GetFileName(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return "";
+		// normalize path
+		NormalizePath(filepath, filepath);
+		// location
+		int pos1 = filepath.find_last_of('/');
+		int pos2 = filepath.length();
+		// return
+		return  filepath.substr(pos1 + 1, (pos2 - pos1 - 1));
+	}
+
+	string VRFileSystemTool::GetFileExtension(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return "";
+		// normalize path
+		NormalizePath(filepath, filepath);
+		int pos1 = filepath.find_last_of('.');
+		int pos2 = filepath.length() - 1;
+		string s = "";
+		s = filepath.substr(pos1, (pos2 - pos1 + 1));
+		transform(s.begin(), s.end(), s.begin(), ::tolower);
+		return s;
+	}
+
+	string VRFileSystemTool::GetFileNameWithoutExtension(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return "";
+		// normalize path
+		NormalizePath(filepath, filepath);
+		// location
+		int pos1 = filepath.find_last_of('/');
+		int pos2 = filepath.find_last_of('.');
+		// check
+		if (pos2 == -1) pos2 = filepath.length();
+		// return
+		return  filepath.substr(pos1 + 1, (pos2 - pos1 - 1));
+	}
+
+	string VRFileSystemTool::GetFilePathWithoutExtension(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return "";
+		// normalize path
+		NormalizePath(filepath, filepath);
+		// location
+		int pos1 = 0;
+		int pos2 = filepath.find_last_of('.');
+		// check
+		if (pos2 == -1) pos2 = filepath.length();
+		// return
+		return  filepath.substr(pos1, (pos2 - pos1));
+	}
+
+	string VRFileSystemTool::GetFileDirectoryName(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return "";
+		// normalize path
+		NormalizePath(filepath, filepath);
+		// location
+		int pos1 = filepath.find_last_of('/');
+		int pos2 = filepath.find_last_of('/', pos1 - 1);
+		// check
+		if (pos2 == -1 || pos1 == pos2) return "";
+		// return
+		return  filepath.substr(pos2 + 1, (pos1 - pos2 - 1));
+	}
+
+	string VRFileSystemTool::GetDirectoryName(string dirpath)
+	{
+		// check 
+		if (!IsDirectory(dirpath)) return "";
+		// normalize path
+		NormalizePath(dirpath, dirpath);
+		// location
+		int pos1 = dirpath.find_last_of('/');
+		int pos2 = dirpath.find_last_of('/', pos1 - 1);
+		// check
+		if (pos2 == -1 || pos1 == pos2) return "";
+		// return
+		return  dirpath.substr(pos2 + 1, (pos1 - pos2 - 1));
+	}
+
 
 	// -----------------------------------------------------------------------------------
 	// Private

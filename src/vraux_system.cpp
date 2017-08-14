@@ -1,4 +1,4 @@
-#include "vraux_system.h"
+#include "vraux/vraux_system.h"
 
 namespace visionrush
 {
@@ -86,22 +86,22 @@ namespace visionrush
 
 	string VRSystemTool::CalcMD5ofString(string text)
 	{
-		return md5_tool_.calcmd5_string(text);
+		return h_md5_.calcmd5_string(text);
 	}
 
 	string VRSystemTool::CalcMD5ofFile(string filepath)
 	{
-		return md5_tool_.calcmd5_file(filepath);
+		return h_md5_.calcmd5_file(filepath);
 	}
 
 	string VRSystemTool::CalcSHA1ofString(string text)
 	{
 		string out_sha1value;
 		// calc
-		sha1_tool_.Update((UINT_8*)text.c_str(), text.size() * sizeof(TCHAR));
-		sha1_tool_.Final();
-		sha1_tool_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
-		sha1_tool_.Reset();
+		h_sha1_.Update((UINT_8*)text.c_str(), text.size() * sizeof(TCHAR));
+		h_sha1_.Final();
+		h_sha1_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
+		h_sha1_.Reset();
 		// return
 		transform(out_sha1value.begin(), out_sha1value.end(), out_sha1value.begin(), ::tolower);  
 		return out_sha1value;
@@ -111,11 +111,11 @@ namespace visionrush
 	{
 		string out_sha1value;
 		// calc
-		const bool bsuc= sha1_tool_.HashFile(filepath.c_str());
-		sha1_tool_.Final();
-		sha1_tool_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
+		const bool bsuc= h_sha1_.HashFile(filepath.c_str());
+		h_sha1_.Final();
+		h_sha1_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
 		if (!bsuc) out_sha1value = "";
-		sha1_tool_.Reset();
+		h_sha1_.Reset();
 		// return
 		transform(out_sha1value.begin(), out_sha1value.end(), out_sha1value.begin(), ::tolower);  
 		return out_sha1value;

@@ -18,11 +18,11 @@ int main()
 	// Test for vraux_filesystem
 	TestForFileSystem();
 
-	// Test for vraux_system
-	TestForSystem();
+	//// Test for vraux_system
+	//TestForSystem();
 
-	// Test for vraux_stringprocess
-	TestForStringProcess();
+	//// Test for vraux_stringprocess
+	//TestForStringProcess();
 
 
 

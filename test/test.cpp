@@ -58,6 +58,7 @@ void TestForFileSystem()
 		string normdir;
 		string path;
 		string normpath;
+		string name;
 
 #if defined Q_OS_WIN
 		dir = "C:\\opencv2410\\include\\opencv2";
@@ -90,10 +91,61 @@ void TestForFileSystem()
 		printf("\n\n");
 
 		// check file size
-		printf("libvr: GetFileSizeX.\n");
+		printf("libvr: GetFileSizeX \n");
 		printf("------------------------------------------\n");
-		printf("libvr: %s size is %lld.\n", normpath.c_str(), vrtool.GetFileSizeX(normpath));
+		printf("libvr: %s size is %lld \n", normpath.c_str(), vrtool.GetFileSizeX(normpath));
 		printf("\n\n");
+
+
+		// get file name
+		name = vrtool.GetFileName(path);
+		printf("libvr: GetFileName \n");
+		printf("------------------------------------------\n");
+		printf("libvr: path is %s \n", path.c_str());
+		printf("libvr: name is %s \n", name.c_str());
+		printf("\n\n");
+
+		// get file extension
+		string extension;
+		extension = vrtool.GetFileExtension(path);
+		printf("libvr: GetFileExtension \n");
+		printf("------------------------------------------\n");
+		printf("libvr: path is %s \n", path.c_str());
+		printf("libvr: ext  is %s \n", extension.c_str());
+		printf("\n\n");
+
+		// get file name without extension
+		name = vrtool.GetFileNameWithoutExtension(path);
+		printf("libvr: GetFileNameWithoutExtension \n");
+		printf("------------------------------------------\n");
+		printf("libvr: path is %s \n", path.c_str());
+		printf("libvr: name(no ext) is %s.\n", name.c_str());
+		printf("\n\n");
+
+		// get file path without extension
+		name = vrtool.GetFilePathWithoutExtension(path);
+		printf("libvr: GetFilePathWithoutExtension \n");
+		printf("------------------------------------------\n");
+		printf("libvr: path is %s \n", path.c_str());
+		printf("libvr: path(no ext) is %s \n", name.c_str());
+		printf("\n\n");
+
+		// get file-dir name
+		name = vrtool.GetFileDirectoryName(path);
+		printf("libvr: GetFileDirectoryName \n");
+		printf("------------------------------------------\n");
+		printf("libvr: path is %s \n", path.c_str());
+		printf("libvr: name is %s \n", name.c_str());
+		printf("\n\n");
+
+		// get dir name
+		name = vrtool.GetDirectoryName(dir);
+		printf("libvr: GetDirectoryName \n");
+		printf("------------------------------------------\n");
+		printf("libvr: dir  is %s \n", dir.c_str());
+		printf("libvr: name is %s \n", name.c_str());
+		printf("\n\n");
+
 	}
 }
 

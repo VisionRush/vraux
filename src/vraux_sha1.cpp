@@ -8,7 +8,7 @@ See header file for version history and test vectors.
 
 // If compiling with MFC, you might want to add #include "StdAfx.h"
 
-#include "vraux_sha1.h"
+#include "vraux/vraux_sha1.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 namespace visionrush

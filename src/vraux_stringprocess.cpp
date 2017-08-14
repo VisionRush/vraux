@@ -1,4 +1,4 @@
-#include "vraux_stringprocess.h"
+#include "vraux/vraux_stringprocess.h"
 
 namespace visionrush
 {
