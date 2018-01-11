@@ -48,16 +48,16 @@ assumes that char is 8 bit and int is 32 bit
 
 namespace visionrush
 {
-	class VR_API MD5
+	class VR_API VRMD5
 	{
 	public:
 		typedef unsigned int size_type; // must be 32bit  
 
-		MD5();
-		MD5(const std::string& text);
+		VRMD5();
+		VRMD5(const std::string& text);
 		void update(const unsigned char *buf, size_type length);
 		void update(const char *buf, size_type length);
-		MD5& finalize();
+		VRMD5& finalize();
 		std::string hexdigest() const;
 		std::string calcmd5_string(std::string text);
 		std::string calcmd5_file(std::string filepath);

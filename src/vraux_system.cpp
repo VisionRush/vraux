@@ -100,7 +100,7 @@ namespace visionrush
 		// calc
 		h_sha1_.Update((UINT_8*)text.c_str(), text.size() * sizeof(TCHAR));
 		h_sha1_.Final();
-		h_sha1_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
+		h_sha1_.ReportHashStl(out_sha1value, VRCSHA1::REPORT_HEX_SHORT);
 		h_sha1_.Reset();
 		// return
 		transform(out_sha1value.begin(), out_sha1value.end(), out_sha1value.begin(), ::tolower);  
@@ -113,7 +113,7 @@ namespace visionrush
 		// calc
 		const bool bsuc= h_sha1_.HashFile(filepath.c_str());
 		h_sha1_.Final();
-		h_sha1_.ReportHashStl(out_sha1value, CSHA1::REPORT_HEX_SHORT);
+		h_sha1_.ReportHashStl(out_sha1value, VRCSHA1::REPORT_HEX_SHORT);
 		if (!bsuc) out_sha1value = "";
 		h_sha1_.Reset();
 		// return

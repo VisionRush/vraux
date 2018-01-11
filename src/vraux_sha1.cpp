@@ -46,20 +46,20 @@ namespace visionrush
 	// Disable compiler warning 'Conditional expression is constant'
 #pragma warning(disable: 4127)
 
-	CSHA1::CSHA1()
+	VRCSHA1::VRCSHA1()
 	{
 		m_block = (SHA1_WORKSPACE_BLOCK*)m_workspace;
 		Reset();
 	}
 
 #ifdef SHA1_WIPE_VARIABLES
-	CSHA1::~CSHA1()
+	VRCSHA1::~VRCSHA1()
 	{
 		Reset();
 	}
 #endif
 
-	void CSHA1::Reset()
+	void VRCSHA1::Reset()
 	{
 		// SHA1 initialization constants
 		m_state[0] = 0x67452301;
@@ -72,7 +72,7 @@ namespace visionrush
 		m_count[1] = 0;
 	}
 
-	void CSHA1::Transform(UINT_32* pState, const UINT_8* pBuffer)
+	void VRCSHA1::Transform(UINT_32* pState, const UINT_8* pBuffer)
 	{
 		UINT_32 a = pState[0], b = pState[1], c = pState[2], d = pState[3], e = pState[4];
 
@@ -113,7 +113,7 @@ namespace visionrush
 #endif
 	}
 
-	void CSHA1::Update(const UINT_8* pbData, UINT_32 uLen)
+	void VRCSHA1::Update(const UINT_8* pbData, UINT_32 uLen)
 	{
 		UINT_32 j = ((m_count[0] >> 3) & 0x3F);
 
@@ -141,7 +141,7 @@ namespace visionrush
 	}
 
 #ifdef SHA1_UTILITY_FUNCTIONS
-	bool CSHA1::HashFile(const TCHAR* tszFileName)
+	bool VRCSHA1::HashFile(const TCHAR* tszFileName)
 	{
 		if (tszFileName == NULL) return false;
 
@@ -172,7 +172,7 @@ namespace visionrush
 	}
 #endif
 
-	void CSHA1::Final()
+	void VRCSHA1::Final()
 	{
 		UINT_32 i;
 
@@ -203,7 +203,7 @@ namespace visionrush
 	}
 
 #ifdef SHA1_UTILITY_FUNCTIONS
-	bool CSHA1::ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType) const
+	bool VRCSHA1::ReportHash(TCHAR* tszReport, REPORT_TYPE rtReportType) const
 	{
 		if (tszReport == NULL) return false;
 
@@ -239,7 +239,7 @@ namespace visionrush
 #endif
 
 #ifdef SHA1_STL_FUNCTIONS
-	bool CSHA1::ReportHashStl(std::basic_string<TCHAR>& strOut, REPORT_TYPE rtReportType) const
+	bool VRCSHA1::ReportHashStl(std::basic_string<TCHAR>& strOut, REPORT_TYPE rtReportType) const
 	{
 		TCHAR tszOut[84];
 		const bool bResult = ReportHash(tszOut, rtReportType);
@@ -248,7 +248,7 @@ namespace visionrush
 	}
 #endif
 
-	bool CSHA1::GetHash(UINT_8* pbDest20) const
+	bool VRCSHA1::GetHash(UINT_8* pbDest20) const
 	{
 		if (pbDest20 == NULL) return false;
 		memcpy(pbDest20, m_digest, 20);

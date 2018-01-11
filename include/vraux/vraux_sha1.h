@@ -223,7 +223,7 @@ namespace visionrush
 		UINT_32 l[16];
 	} SHA1_WORKSPACE_BLOCK;
 
-	class VR_API CSHA1
+	class VR_API VRCSHA1
 	{
 	public:
 #ifdef SHA1_UTILITY_FUNCTIONS
@@ -237,10 +237,10 @@ namespace visionrush
 #endif
 
 		// Constructor and destructor
-		CSHA1();
+		VRCSHA1();
 
 #ifdef SHA1_WIPE_VARIABLES
-		~CSHA1();
+		~VRCSHA1();
 #endif
 
 		void Reset();

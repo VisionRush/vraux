@@ -1,0 +1,14 @@
+Instruction:
+VRAux is very useful software library which provides many convenient program auxiliary module. It supports Windows and Linux systems.
+
+Module: vraux_filesystem
+
+
+Module: vraux_system
+
+
+Module: vraux_stringprocess
+
+
+
+---

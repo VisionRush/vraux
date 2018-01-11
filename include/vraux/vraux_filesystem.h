@@ -62,6 +62,14 @@ namespace visionrush
 		void TraverseSubDirectoryPathes(string dir, vector<string>& subdirpathes);
 
 		// Func:
+		//	Traverse sub directory path in speciald directory recursively.
+		// Input:
+		//	dir				: specialed directory
+		// Output:
+		//	subdirpathes	: sub directory path vector
+		void TraverseSubDirectoryPathesRecursively(string dir, vector<string>& subdirpathes);
+
+		// Func:
 		//	Normalize path, that is, convert path format to unix/linux mode.
 		// Input:
 		//	input_path		: intput path(any format)
@@ -148,6 +156,69 @@ namespace visionrush
 		// Return:
 		//	string		: dir name 
 		string GetDirectoryName(string dirpath);
+
+		// Func:
+		//	Get current working directory like pwd in linux.
+		// Return:
+		//	string		: dirpath
+		string GetPWD();
+
+		// Func:
+		//	Create directory.
+		// Input:
+		//	dirpath		: dir path
+		// Return:
+		//	int			: suc
+		int CreateDirectoryx(string dirpath);
+
+		// Func:
+		//	Create directory recursively.
+		// Input:
+		//	dirpath		: dir path
+		// Return:
+		//	int			: suc
+		int CreateDirectoryxRecursively(string dirpath);
+
+		// Func:
+		//	Read string-line from text.
+		// Input:
+		//	filepath		: file path
+		// Output:
+		//	lines			: string lines
+		// Return:
+		//	int				: suc: line number; fail: -1 
+		int ReadLineFromTxt(string filepath, vector<string>& lines);
+
+		// Func:
+		//	Copy file.
+		// Input:
+		//	string	: src path
+		//	string	: dst path
+		//	bool	: be fail if exists
+		int CopyFilex(string src_path, string dst_path, bool bfailifexists);
+
+		// Func:
+		//	Move file.
+		// Input:
+		//	string	: src path
+		//	string	: dst path
+		int MoveFilex(string src_path, string dst_path);
+
+		// Func:
+		//	Remove specified file.
+		// Input:
+		//	filepath		: file path
+		// Return:
+		//	int				: suc
+		int RemoveFile(string filepath);
+
+		// Func:
+		//	Remove directory.
+		// Input:
+		//	dirpath			: dir path
+		// Return:
+		//	int				: suc
+		int RemoveDirectoryx(string dirpath);
 
 	private:
 

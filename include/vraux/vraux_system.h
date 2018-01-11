@@ -35,6 +35,9 @@ namespace visionrush
 		//	...					: variable-argument
 		void Logf(string logpath, const char *format, ...);
 
+		// __FILE__  __LINE__
+		void LogErrf(string logpath, const char *format, ...);
+
 		// Func:
 		//	Calculate md5 for text.
 		// Input:
@@ -118,8 +121,8 @@ namespace visionrush
 		void DecryptFilevr(string in_filename, string out_filename, const char *pwd);
 
 	private:
-		MD5 h_md5_;
-		CSHA1 h_sha1_;
+		VRMD5 h_md5_;
+		VRCSHA1 h_sha1_;
 	};
 
 }

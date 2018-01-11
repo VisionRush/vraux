@@ -1,27 +1,28 @@
-#include "test.h"
 #include <iostream>
 #include <fstream>
 #include <istream>
 #include <time.h>
+#include "test.h"
 
 using namespace visionrush;
 
 int main()
 {
+	// Check Operate System
 #if defined Q_OS_WIN
-	printf("libvr: os is windows.\n\n\n");
+	printf("[%s:%d] libvr: os is windows.\n\n\n", __FILE__, __LINE__);
 #elif defined Q_OS_LINUX
-	printf("libvr: os is linux.\n\n\n");
+	printf("[%s:%d] libvr: os is linux.\n\n\n", __FILE__, __LINE__);
 #else
 #endif
 
-	// Test for vraux_filesystem
+	//// Test for module: vraux_filesystem
 	TestForFileSystem();
 
-	//// Test for vraux_system
+	//// Test for module: vraux_system
 	//TestForSystem();
 
-	//// Test for vraux_stringprocess
+	//// Test for module: vraux_stringprocess
 	//TestForStringProcess();
 
 

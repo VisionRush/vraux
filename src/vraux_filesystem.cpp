@@ -36,6 +36,10 @@ namespace visionrush
 		Traverse(dir, subdirpathes, "*.*", 3, false);
 	}
 
+	void VRFileSystemTool::TraverseSubDirectoryPathesRecursively(string dir, vector<string>& subdirpathes)
+	{
+		Traverse(dir, subdirpathes, "*.*", 3, true);
+	}
 
 	void VRFileSystemTool::NormalizePath(string input_path, string& output_path)
 	{
@@ -45,6 +49,12 @@ namespace visionrush
 		while ((pos = output_path.find("\\", pos)) != string::npos)
 		{
 			output_path.replace(pos, 1, "/");
+			pos += 1;
+		}
+		pos = 0;
+		while ((pos = output_path.find("//", pos)) != string::npos)
+		{
+			output_path.replace(pos, 2, "/");
 			pos += 1;
 		}
 		// supplement directory path
@@ -117,6 +127,9 @@ namespace visionrush
 
 	long long VRFileSystemTool::GetFileSizeX(string filepath)
 	{
+		// check 
+		if (!IsFile(filepath)) return -1;
+
 		long long filesize = 0;
 #if defined Q_OS_WIN
 		FILE* filehandler = fopen(filepath.c_str(), "rb");
@@ -158,6 +171,8 @@ namespace visionrush
 		NormalizePath(filepath, filepath);
 		int pos1 = filepath.find_last_of('.');
 		int pos2 = filepath.length() - 1;
+		// check 
+		if (pos1 == -1) return "";
 		string s = "";
 		s = filepath.substr(pos1, (pos2 - pos1 + 1));
 		transform(s.begin(), s.end(), s.begin(), ::tolower);
@@ -224,6 +239,148 @@ namespace visionrush
 		return  dirpath.substr(pos2 + 1, (pos1 - pos2 - 1));
 	}
 
+	string VRFileSystemTool::GetPWD()
+	{
+		string dirpath;
+		// get pwd
+		char buffer[1024];
+		getcwd(buffer, 1024);
+		// return
+		dirpath = buffer;
+		NormalizePath(dirpath, dirpath);
+		return dirpath;
+	}
+
+	int VRFileSystemTool::CreateDirectoryx(string dirpath)
+	{
+#if defined Q_OS_WIN
+		return mkdir(dirpath.c_str());
+#elif defined Q_OS_LINUX
+		return mkdir(dirpath.c_str(), S_IRWXU);
+#else
+#endif
+	}
+
+
+	int VRFileSystemTool::ReadLineFromTxt(string filepath, vector<string>& lines)
+	{
+		// open text file
+		ifstream ifs(filepath);
+		if (!ifs.is_open())
+		{
+			printf("libvr-err: failed to open file!.\n");
+			return -1;
+		}
+		// read line
+		string line;
+		while (getline(ifs, line))
+		{
+#if defined Q_OS_LINUX
+			if (line[line.length() - 1] == '\r')	// only linux
+				line = line.substr(0, line.length() - 1);
+#endif
+			if (line.empty()) continue;
+			//printf("%s\n", line.c_str());
+			lines.push_back(line);
+	}
+		ifs.close();
+		// return
+		return lines.size();
+}
+
+
+	int VRFileSystemTool::RemoveDirectoryx(string dirpath)
+	{
+		// check
+		if (!IsDirectory(dirpath)) return 1;
+		// remove
+		int state = rmdir(dirpath.c_str());
+#if defined Q_OS_WIN
+		if (state != 0)
+		{
+			int errcode = GetLastError();
+			char errmsg[512];
+			FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, errcode, 0, errmsg, sizeof(errmsg), NULL);
+			printf("libvr-err: errcode is %3d, errmsg is %s", errcode, errmsg);
+		}
+#elif defined Q_OS_LINUX
+#else
+#endif
+		return state;
+		}
+
+
+	int VRFileSystemTool::CopyFilex(string src_path, string dst_path, bool bfailifexists)
+	{
+		// check
+		if (!Exist(src_path)) return 1;
+		// copy
+#if defined Q_OS_WIN
+		int state = !CopyFile(src_path.c_str(), dst_path.c_str(), bfailifexists);
+		if (state != 0)
+		{
+			int errcode = GetLastError();
+			char errmsg[512];
+			FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, errcode, 0, errmsg, sizeof(errmsg), NULL);
+			printf("libvr-err: errcode is %3d, errmsg is %s", errcode, errmsg);
+		}
+		return state;
+#elif defined Q_OS_LINUX
+		FILE *fp1;
+		fp1 = fopen(src_path.c_str(), "r");
+		FILE *fp2;
+		fp2 = fopen(dst_path.c_str(), "w");
+		char buff[200] = {'\0'};
+		while (fgets(buff, sizeof(buff), fp1) != NULL)
+		{
+			fputs(buff, fp2);
+		}
+		fclose(fp1);
+		fclose(fp2);
+		return 0;
+#else
+#endif
+	}
+
+	int VRFileSystemTool::MoveFilex(string src_path, string dst_path)
+	{
+		// check
+		if (!Exist(src_path)) return 1;
+		// move
+		int state = rename(src_path.c_str(), dst_path.c_str());
+#if defined Q_OS_WIN
+		if (state != 0)
+		{
+			int errcode = GetLastError();
+			char errmsg[512];
+			FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, errcode, 0, errmsg, sizeof(errmsg), NULL);
+			printf("libvr-err: errcode is %3d, errmsg is %s", errcode, errmsg);
+		}
+#elif defined Q_OS_LINUX
+#else
+#endif
+		return state;
+		}
+
+	int VRFileSystemTool::RemoveFile(string filepath)
+	{
+		// check 
+		if (!IsFile(filepath)) return -1;
+		// remove
+		int state = remove(filepath.c_str());
+#if defined Q_OS_WIN
+		if (state != 0)
+		{
+			int errcode = GetLastError();
+			char errmsg[512];
+			FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, errcode, 0, errmsg, sizeof(errmsg), NULL);
+			printf("libvr-err: errcode is %3d, errmsg is %s", errcode, errmsg);
+		}
+#elif defined Q_OS_LINUX
+#else
+#endif
+		return state;
+		}
 
 	// -----------------------------------------------------------------------------------
 	// Private
@@ -365,5 +522,5 @@ namespace visionrush
 
 #endif
 
-}
+	}
 
